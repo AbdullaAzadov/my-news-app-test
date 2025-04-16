@@ -1,0 +1,33 @@
+// app/api/news/route.ts
+export async function GET(request: Request) {
+  try {
+    const url = new URL(request.url);
+    const searchParams = url.searchParams.toString();
+
+    const endpoint = `https://newsapi.org/v2/top-headlines?country=us${
+      searchParams ? `&${searchParams}` : ""
+    }`;
+
+    const apiRes = await fetch(endpoint, {
+      headers: {
+        "X-Api-Key": process.env.NEWS_API_KEY!,
+      },
+    });
+
+    const data = await apiRes.json();
+
+    if (!apiRes.ok) {
+      console.error("Ошибка от NewsAPI:", data);
+      return new Response(JSON.stringify({ error: data }), {
+        status: apiRes.status,
+      });
+    }
+
+    return Response.json(data);
+  } catch (error: any) {
+    console.error("Ошибка в API:", error);
+    return new Response(JSON.stringify({ error: "Ошибка на сервере" }), {
+      status: 500,
+    });
+  }
+}
