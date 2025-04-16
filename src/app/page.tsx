@@ -3,7 +3,7 @@ import React from "react";
 export const dynamic = "force-dynamic";
 
 async function getNews() {
-  const res = await fetch("http://localhost:3000/api/news");
+  const res = await fetch("https://my-news-app-test.vercel.app/api/news");
   const data = await res.json();
   return data.articles;
 }
