@@ -16,6 +16,20 @@ export default async function HomePage() {
   return (
     <main>
       <h1>Последние новости</h1>
+      <ul>
+        {articles.map((article: TArticle, index: number) => (
+          <li key={index}>
+            <a href={article.url} target="_blank" rel="noopener noreferrer">
+              {article.title}
+            </a>
+          </li>
+        ))}
+      </ul>
     </main>
   );
 }
+
+type TArticle = {
+  title: string;
+  url: string;
+};
