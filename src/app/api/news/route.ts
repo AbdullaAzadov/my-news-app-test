@@ -1,4 +1,3 @@
-// app/api/news/route.ts
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
@@ -24,7 +23,7 @@ export async function GET(request: Request) {
     }
 
     return Response.json(data);
-  } catch (error: any) {
+  } catch (error) {
     console.error("Ошибка в API:", error);
     return new Response(JSON.stringify({ error: "Ошибка на сервере" }), {
       status: 500,
